@@ -22,3 +22,9 @@ CREATE_WRAPPER_FOR(instance->mainClass, MenuLayer_openOptions, void, ARGS(self, 
 CREATE_WRAPPER_FOR(instance->mainClass, MenuLayer_showTOS, void, ARGS(self), MenuLayer* self)
 CREATE_WRAPPER_FOR(instance->mainClass, MenuLayer_updateUserProfileButton, void, ARGS(self), MenuLayer* self)
 CREATE_WRAPPER_FOR(instance->mainClass, MenuLayer_willClose, void, ARGS(self), MenuLayer* self)
+
+// CREATE_WRAPPER_FOR(instance->mainClass, LoadingLayer_getLoadingString, const char*, ARGS(self), LoadingLayer* self) for some reason pybind11 doesnt really like it when a function is of type `const char*`...
+CREATE_WRAPPER_FOR(instance->mainClass, LoadingLayer_init, bool, ARGS(self, p0), LoadingLayer* self, bool p0)
+CREATE_WRAPPER_FOR(instance->mainClass, LoadingLayer_loadAssets, void, ARGS(self), LoadingLayer* self)
+CREATE_WRAPPER_FOR(instance->mainClass, LoadingLayer_scene, cocos2d::CCScene*, ARGS(self, p0), LoadingLayer* self, bool p0)
+CREATE_WRAPPER_FOR(instance->mainClass, LoadingLayer_updateProgress, void, ARGS(self, p0), LoadingLayer* self, int p0)

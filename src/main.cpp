@@ -11,6 +11,8 @@ namespace py = pybind11;
 using namespace geode::prelude;
 using namespace Serpent;
 
+bool Serpent::safeMode = false;
+
 void unzipAndExecute(std::filesystem::path scripts) {
 	log::info("Unzipping and executing...");
 	auto unzippedDirRes = geode::utils::file::createDirectory(Mod::get()->getConfigDir() / "unzipped");
@@ -20,6 +22,10 @@ void unzipAndExecute(std::filesystem::path scripts) {
 	}
 
 	static bool shouldExec = true;
+
+	if (Serpent::safeMode = std::filesystem::exists(Mod::get()->getConfigDir() / "safemode")) {
+		log::debug("Safe Mode is on, the enabled script will not be executed.");
+	}
 
 	auto unzipped = Mod::get()->getConfigDir() / "unzipped";
 
@@ -45,7 +51,7 @@ void unzipAndExecute(std::filesystem::path scripts) {
 
 					Serpent::tempScripts.push_back(scriptjson.unwrap());
 
-					if (Mod::get()->getSavedValue<std::string>("enabled-script") == name && shouldExec) {
+					if (Mod::get()->getSavedValue<std::string>("enabled-script") == name && shouldExec && !Serpent::safeMode) {
 						log::info("Executing {}...", name);
 						try {
 							auto scriptSource = geode::utils::file::readString(scriptDir / std::filesystem::path(name + ".py"));

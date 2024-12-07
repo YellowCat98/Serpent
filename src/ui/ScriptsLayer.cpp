@@ -4,7 +4,7 @@ using namespace geode::prelude;
 using namespace Serpent::ui;
 
 bool ScriptsLayer::setup() {
-    scroll = ScrollLayer::create(CCSize(445, 230));
+    scroll = ScrollLayer::create(CCSize(winSize.width - 125.0f, 230));
     this->setTitle("Serpent", "bigFont.fnt");
 
     scroll->setPosition(winSize / 2);
@@ -16,7 +16,7 @@ bool ScriptsLayer::setup() {
             ->setGap(5.0f)
     );
 
-    border = Border::create(scroll, {100, 45, 0, 255}, {445, 230});
+    border = Border::create(scroll, {100, 45, 0, 255}, {winSize.width - 125.0f, 230});
 
     border->setPosition(
         {
@@ -32,7 +32,7 @@ bool ScriptsLayer::setup() {
             if (static_cast<CCMenuItemToggler*>(sender)->isToggled()) {
                 Mod::get()->setSavedValue<std::string>("enabled-script", script["id"].asString().unwrap());
             }
-        }));
+        }, CCSize(scroll->getContentSize().width, 30)));
     }
 
     auto menu = CCMenu::create();

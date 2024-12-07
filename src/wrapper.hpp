@@ -27,5 +27,11 @@ namespace Serpent {
 		static void MenuLayer_showTOS(MenuLayer* self);
 		static void MenuLayer_updateUserProfileButton(MenuLayer* self);
 		static void MenuLayer_willClose(MenuLayer* self);
+
+		// static const char* LoadingLayer_getLoadingString(LoadingLayer* self);
+		static bool LoadingLayer_init(LoadingLayer* self, bool p0);
+		static void LoadingLayer_loadAssets(LoadingLayer* self);
+		static cocos2d::CCScene* LoadingLayer_scene(LoadingLayer* self, bool p0);
+		static void LoadingLayer_updateProgress(LoadingLayer* self, int p0);
 	};
 }

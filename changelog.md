@@ -1,3 +1,10 @@
+# 1.0.0-beta.4
+- Fixed UI on less wider screens
+- Added LoadingLayer members to the bindings
+- Added LoadingLayer hooks
+- Added `createQuickPopup` to the bindings
+- Added safe mode in case a LoadingLayer hook crashes.
+
 # 1.0.0-beta.3
 - Update mod description to specify python 3.9.13 requirement.
 

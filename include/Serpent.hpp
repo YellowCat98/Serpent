@@ -42,25 +42,27 @@ type wrapper::fn(__VA_ARGS__) { \
 namespace Serpent {
 	namespace bindings {
 		struct _geode { // prefixed with _ so compiler/YOU doesnt/dont get confused between Serpent::geode and geode ns
-			static void bind(const pybind11::module& m);
-			static void enums(const pybind11::module& m);
+			static void bind(pybind11::module m);
+			static void enums(pybind11::module m);
 		};
 
 		struct cocos {
-			static void bind(const pybind11::module& m);
-			static void enums(const pybind11::module& m);
+			static void bind(pybind11::module m);
+			static void enums(pybind11::module m);
 		};
 
 		struct robtop {
-			static void bind(const pybind11::module& m);
-			static void enums(const pybind11::module& m);
+			static void bind(pybind11::module m);
+			static void enums(pybind11::module m);
 		};
 
 		// mod-specific bindings
 		struct serpent {
-			static void bind(const pybind11::module& m);
+			static void bind(pybind11::module m);
 		};
 	}
+
+	extern bool safeMode;
 
 	class script;
 
@@ -104,10 +106,10 @@ namespace Serpent {
 			cocos2d::CCLabelBMFont* dev;
 			cocos2d::CCMenu* viewMenu;
 			matjson::Value json;
-			bool init(matjson::Value theJson, std::function<void(cocos2d::CCObject*)> onButton);
+			bool init(matjson::Value theJson, std::function<void(cocos2d::CCObject*)> onButton, const cocos2d::CCSize& size);
 			void listener(float dt);
 		public:
-			static ScriptItem* create(matjson::Value, std::function<void(cocos2d::CCObject*)> onButton);
+			static ScriptItem* create(matjson::Value, std::function<void(cocos2d::CCObject*)> onButton, const cocos2d::CCSize& size);
 			CCMenuItemToggler* viewBtn; // pretty much need to access it within ScriptsLayer!
 		};
 

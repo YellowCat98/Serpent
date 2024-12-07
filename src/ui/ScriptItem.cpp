@@ -7,7 +7,7 @@ using namespace geode::prelude;
 
 // took a look at `ModItem`'s source to know what im doing while coding this node
 
-bool ScriptItem::init(matjson::Value theJson, std::function<void(CCObject*)> onButton) {
+bool ScriptItem::init(matjson::Value theJson, std::function<void(CCObject*)> onButton, const cocos2d::CCSize& size) {
 	if (!CCNode::init()) return false;
 	json = theJson;
 	this->setID(fmt::format("script-item/{}", json["id"].asString().unwrap()));
@@ -20,7 +20,7 @@ bool ScriptItem::init(matjson::Value theJson, std::function<void(CCObject*)> onB
 	bg->ignoreAnchorPointForPosition(false);
 	bg->setAnchorPoint({0.5f, 0.5f});
 	bg->setScale(0.7f);
-	this->setContentSize({445, 30});
+	this->setContentSize(size);
 	bg->setContentSize((m_obContentSize - ccp(6, 0)) / bg->getScale());
 	bg->setPosition(m_obContentSize / 2);
 
@@ -120,9 +120,9 @@ void ScriptItem::listener(float dt) {
 	};
 }
 
-ScriptItem* ScriptItem::create(matjson::Value json, std::function<void(CCObject*)> onButton) {
+ScriptItem* ScriptItem::create(matjson::Value json, std::function<void(CCObject*)> onButton, const cocos2d::CCSize& size) {
 	auto ret = new ScriptItem();
-	if (ret->init(json, onButton)) {
+	if (ret->init(json, onButton, size)) {
 		ret->autorelease();
 		return ret;
 	}

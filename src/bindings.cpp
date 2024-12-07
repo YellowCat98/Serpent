@@ -3,17 +3,19 @@
 namespace py = pybind11;
 using namespace geode::prelude;
 
-void Serpent::bindings::_geode::bind(const pybind11::module& m) {
+void Serpent::bindings::_geode::bind(pybind11::module m) {
 	py::class_<Notification>(m, "Notification")
 		.def_static("create", py::overload_cast<std::string const&, NotificationIcon, float>(&Notification::create), py::arg("text"), py::arg("icon") = NotificationIcon::None, py::arg("time") = geode::NOTIFICATION_DEFAULT_TIME, py::return_value_policy::reference)
 		.def("show", &Notification::show)
 		.def("cancel", &Notification::cancel)
 		.def("hide", &Notification::hide);
+	
+	m.def("createQuickPopup", [=](const char* title, std::string const& content, const char* btn1, const char* btn2, std::function<void(FLAlertLayer*, bool)>&& selected){
+		return geode::createQuickPopup(title, content, btn1, btn2, selected);
+	}, py::return_value_policy::reference);
 }
 
-void Serpent::bindings::_geode::enums(const pybind11::module& m) {
-	log::debug("Binding geode enums...");
-	
+void Serpent::bindings::_geode::enums(pybind11::module m) {
 	py::enum_<NotificationIcon>(m, "NotificationIcon")
 		.value("None", NotificationIcon::None)
 		.value("Loading", NotificationIcon::Loading)
@@ -21,13 +23,11 @@ void Serpent::bindings::_geode::enums(const pybind11::module& m) {
 		.value("Warning", NotificationIcon::Warning)
 		.value("Error", NotificationIcon::Error)
 		.value("Info", NotificationIcon::Info);
-	
-	log::debug("Finished binding geode enums!");
 }
 
 // cocos
 
-void Serpent::bindings::cocos::bind(const pybind11::module& m) {
+void Serpent::bindings::cocos::bind(pybind11::module m) {
 	py::class_<CCObject>(m, "CCObject")
 		.def("release", &CCObject::release)
 		.def("retain", &CCObject::retain)
@@ -199,7 +199,7 @@ void Serpent::bindings::cocos::bind(const pybind11::module& m) {
 }
 
 
-void Serpent::bindings::cocos::enums(const pybind11::module& m) {
+void Serpent::bindings::cocos::enums(pybind11::module m) {
 	py::enum_<CCObjectType>(m, "CCObjectType") // i actualy dont know why this exists but ill just bind it for the 2 people that want it!
 		.value("PlayLayer", CCObjectType::PlayLayer)
 		.value("LevelEditorLayer", CCObjectType::LevelEditorLayer)
@@ -207,7 +207,7 @@ void Serpent::bindings::cocos::enums(const pybind11::module& m) {
 		.value("MenuLayer", CCObjectType::MenuLayer);
 }
 
-void Serpent::bindings::robtop::bind(const pybind11::module& m) {
+void Serpent::bindings::robtop::bind(pybind11::module m) {
 	py::class_<GooglePlayDelegate>(m, "GooglePlayDelegate")	
 		.def("googlePlaySignedIn", py::overload_cast<>(&GooglePlayDelegate::googlePlaySignedIn));
 
@@ -234,11 +234,20 @@ void Serpent::bindings::robtop::bind(const pybind11::module& m) {
 		.def("willClose", py::overload_cast<>(&MenuLayer::willClose));
 
 	py::class_<LoadingLayer, CCLayer>(m, "LoadingLayer")
-		.def("getLoadingString", py::overload_cast<>(&LoadingLayer::getLoadingString))
+		.def("getLoadingString", py::overload_cast<>(&LoadingLayer::getLoadingString), py::return_value_policy::reference)
 		.def("init", py::overload_cast<bool>(&LoadingLayer::init), py::arg("p0"))
 		.def("loadAssets", py::overload_cast<>(&LoadingLayer::loadAssets))
 		.def_static("scene", py::overload_cast<bool>(&LoadingLayer::scene), py::arg("p0"), py::return_value_policy::reference)
-		.def("updateProgress", py::overload_cast<int>(&LoadingLayer::updateProgress));
+		.def("updateProgress", py::overload_cast<int>(&LoadingLayer::updateProgress))
+		.def_readwrite("unknown", &LoadingLayer::m_unknown)
+		.def_readwrite("unknown2", &LoadingLayer::m_unknown2)
+		.def_readwrite("loadStep", &LoadingLayer::m_loadStep)
+		.def_readwrite("caption", &LoadingLayer::m_caption)
+		.def_readwrite("textArea", &LoadingLayer::m_textArea)
+		.def_readwrite("sliderBar", &LoadingLayer::m_sliderBar)
+		.def_readwrite("sliderGrooveXPos", &LoadingLayer::m_sliderGrooveXPos)
+		.def_readwrite("sliderGrooveHeight", &LoadingLayer::m_sliderGrooveHeight)
+		.def_readwrite("fromRefresh", &LoadingLayer::m_fromRefresh);
 
 	py::class_<FLAlertLayerProtocol>(m, "FLAlertLayerProtocol")
 		.def("FLAlert_Clicked", py::overload_cast<FLAlertLayer*, bool>(&FLAlertLayerProtocol::FLAlert_Clicked));
@@ -251,7 +260,7 @@ void Serpent::bindings::robtop::bind(const pybind11::module& m) {
 		.def("show", py::overload_cast<>(&FLAlertLayer::show));
 }
 
-void Serpent::bindings::serpent::bind(const pybind11::module& m) {
+void Serpent::bindings::serpent::bind(pybind11::module m) {
 	py::class_<script>(m, "script")
 		.def(py::init<const std::string&, py::object>(), py::return_value_policy::reference)
 		.def_readwrite("ID", &script::ID)
