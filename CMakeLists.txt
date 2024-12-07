@@ -31,9 +31,6 @@ CPMAddPackage(
     VERSION 2.13.6
 )
 
-set(Python_USE_STATIC_LIBS ON)
-find_package(Python REQUIRED COMPONENTS Interpreter Development)
-
 target_link_libraries(${PROJECT_NAME} pybind11::embed pybind11::module)
 
 setup_geode_mod(${PROJECT_NAME})
