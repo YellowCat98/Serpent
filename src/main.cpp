@@ -22,8 +22,8 @@ void unzipAndExecute(std::filesystem::path scripts) {
 	}
 
 	static bool shouldExec = true;
-
-	if (Serpent::safeMode = std::filesystem::exists(Mod::get()->getConfigDir() / "safemode")) {
+	Serpent::safeMode = std::filesystem::exists(Mod::get()->getConfigDir() / "safemode");
+	if (Serpent::safeMode) {
 		log::debug("Safe Mode is on, the enabled script will not be executed.");
 	}
 
