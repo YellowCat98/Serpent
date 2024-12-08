@@ -8,7 +8,7 @@
 	},
 	"id": "yellowcat98.serpent",
 	"name": "Serpent",
-	"version": "v1.0.0-beta.4",
+	"version": "v1.0.0-beta.3",
 	"developer": "YellowCat98",
 	"description": "Run python scripts within GD.",
 	"links": {
@@ -20,6 +20,42 @@
 	"resources": {
 		"sprites": [
 			"resources/*.png"
+		],
+		"files" : [
+			"resources/binaries/win/libcrypto-1_1.dll",
+			"resources/binaries/win/libffi-7.dll",
+			"resources/binaries/win/libssl-1_1.dll",
+			"resources/binaries/win/LICENSE.txt",
+			"resources/binaries/win/pyexpat.pyd",
+			"resources/binaries/win/python.cat",
+			"resources/binaries/win/python.exe",
+			"resources/binaries/win/python3.dll",
+			"resources/binaries/win/python39.dll",
+			"resources/binaries/win/python39.zip",
+			"resources/binaries/win/python39._pth",
+			"resources/binaries/win/pythonw.exe",
+			"resources/binaries/win/select.pyd",
+			"resources/binaries/win/sqlite3.dll",
+			"resources/binaries/win/unicodedata.pyd",
+			"resources/binaries/win/vcruntime140.dll",
+			"resources/binaries/win/vcruntime140_1.dll",
+			"resources/binaries/win/winsound.pyd",
+			"resources/binaries/win/_asyncio.pyd",
+			"resources/binaries/win/_bz2.pyd",
+			"resources/binaries/win/_ctypes.pyd",
+			"resources/binaries/win/_decimal.pyd",
+			"resources/binaries/win/_elementtree.pyd",
+			"resources/binaries/win/_hashlib.pyd",
+			"resources/binaries/win/_lzma.pyd",
+			"resources/binaries/win/_msi.pyd",
+			"resources/binaries/win/_multiprocessing.pyd",
+			"resources/binaries/win/_overlapped.pyd",
+			"resources/binaries/win/_queue.pyd",
+			"resources/binaries/win/_socket.pyd",
+			"resources/binaries/win/_sqlite3.pyd",
+			"resources/binaries/win/_ssl.pyd",
+			"resources/binaries/win/_uuid.pyd",
+			"resources/binaries/win/_zoneinfo.pyd"
 		]
 	}
 }
