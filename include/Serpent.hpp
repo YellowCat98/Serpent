@@ -3,6 +3,7 @@
 #include <frameobject.h>
 #include <pybind11/pybind11.h>
 #include <pybind11/functional.h>
+#include <pybind11/operators.h>
 #include <Geode/Geode.hpp>
 
 #define CREATE_HOOK_FOR(pyclass, fn, pyfn, wrapperName, address, convention, returnName, body) \

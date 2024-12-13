@@ -1,3 +1,9 @@
+# 1.0.0-beta.5
+- Added GameManager bindings
+- Added GameManager hooks
+- Added SeedValueRSV bindings
+- Added CCLayer hooks.
+
 # 1.0.0-beta.4
 - Fixed UI on less wider screens
 - Added LoadingLayer members to the bindings

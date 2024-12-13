@@ -13,6 +13,12 @@ void Serpent::bindings::_geode::bind(pybind11::module m) {
 	m.def("createQuickPopup", [=](const char* title, std::string const& content, const char* btn1, const char* btn2, std::function<void(FLAlertLayer*, bool)>&& selected){
 		return geode::createQuickPopup(title, content, btn1, btn2, selected);
 	}, py::return_value_policy::reference);
+
+	py::class_<BaseSeedValue>(m, "BaseSeedValue")
+		.def(py::init<>());
+	
+	py::class_<SeedValueRSV, BaseSeedValue>(m, "SeedValueRSV")
+		.def("value", py::overload_cast<>(&SeedValueRSV::value));
 }
 
 void Serpent::bindings::_geode::enums(pybind11::module m) {
@@ -72,8 +78,6 @@ void Serpent::bindings::cocos::bind(pybind11::module m) {
 		.def("replaceScene", py::overload_cast<CCScene*>(&CCDirector::replaceScene), py::arg("pScene"))
 		.def("pushScene", py::overload_cast<CCScene*>(&CCDirector::pushScene), py::arg("pScene"))
 		.def("popScene", py::overload_cast<>(&CCDirector::popScene));
-	
-	
 
 	py::class_<CCNode, CCObject>(m, "CCNode")
 		.def_static("create", &CCNode::create, py::return_value_policy::reference)
@@ -258,6 +262,69 @@ void Serpent::bindings::robtop::bind(pybind11::module m) {
 		.def_static("create", py::overload_cast<FLAlertLayerProtocol*, char const*, std::string, char const*, char const*>(&FLAlertLayer::create), py::arg("delegate"), py::arg("title"), py::arg("desc"), py::arg("btn1"), py::arg("btn2"), py::return_value_policy::reference)
 		.def_static("create", py::overload_cast<char const*, std::string const&, char const*>(&FLAlertLayer::create), py::arg("title"), py::arg("desc"), py::arg("btn"), py::return_value_policy::reference)
 		.def("show", py::overload_cast<>(&FLAlertLayer::show));
+	
+
+	// adding this so im consistent with inheritance!
+	py::class_<GManager, CCNode>(m, "GManager")
+		.def("setup", py::overload_cast<>(&GManager::setup))
+		.def("loadDataFromFile", py::overload_cast<const std::string&>(&GManager::loadDataFromFile), py::arg("p0"))
+		.def("save", py::overload_cast<>(&GManager::save));
+	
+
+	py::class_<GameManager, GManager>(m, "GameManager")
+		.def_static("get", py::overload_cast<>(&GameManager::get), py::return_value_policy::reference)
+		.def("setPlayerBall", py::overload_cast<int>(&GameManager::setPlayerBall), py::arg("id"))
+		.def("setPlayerBird", py::overload_cast<int>(&GameManager::setPlayerBird), py::arg("id"))
+		.def("setPlayerColor", py::overload_cast<int>(&GameManager::setPlayerColor), py::arg("id"))
+		.def("setPlayerColor2", py::overload_cast<int>(&GameManager::setPlayerColor2), py::arg("id"))
+		.def("setPlayerColor3", py::overload_cast<int>(&GameManager::setPlayerColor3), py::arg("id"))
+		.def("setPlayerDart", py::overload_cast<int>(&GameManager::setPlayerDart), py::arg("id"))
+		.def("setPlayerDeathEffect", py::overload_cast<int>(&GameManager::setPlayerDeathEffect), py::arg("id"))
+		.def("setPlayerFrame", py::overload_cast<int>(&GameManager::setPlayerFrame), py::arg("id"))
+		.def("setPlayerGlow", py::overload_cast<bool>(&GameManager::setPlayerGlow), py::arg("v"))
+		.def("setPlayerJetpack", py::overload_cast<int>(&GameManager::setPlayerJetpack), py::arg("id"))
+		.def("setPlayerRobot", py::overload_cast<int>(&GameManager::setPlayerRobot), py::arg("id"))
+		.def("setPlayerShip", py::overload_cast<int>(&GameManager::setPlayerShip), py::arg("id"))
+		.def("setPlayerShipStreak", py::overload_cast<int>(&GameManager::setPlayerShipStreak), py::arg("id"))
+		.def("setPlayerSpider", py::overload_cast<int>(&GameManager::setPlayerSpider), py::arg("id"))
+		.def("setPlayerStreak", py::overload_cast<int>(&GameManager::setPlayerStreak), py::arg("id"))
+		.def("setPlayerSwing", py::overload_cast<int>(&GameManager::setPlayerSwing), py::arg("id"))
+		.def("isColorUnlocked", py::overload_cast<int, UnlockType>(&GameManager::isColorUnlocked), py::arg("p0"), py::arg("p1"))
+		.def("isIconUnlocked", py::overload_cast<int, IconType>(&GameManager::isIconUnlocked), py::arg("p0"), py::arg("p1"));
+}
+
+void Serpent::bindings::robtop::enums(pybind11::module m) {
+	py::enum_<IconType>(m, "IconType")
+		.value("Cube", IconType::Cube)
+		.value("Ship", IconType::Ship)
+		.value("Ball", IconType::Ball)
+		.value("Ufo", IconType::Ufo)
+		.value("Wave", IconType::Wave)
+		.value("Robot", IconType::Robot)
+		.value("Spider", IconType::Spider)
+		.value("Swing", IconType::Swing)
+		.value("Jetpack", IconType::Jetpack)
+		.value("DeathEffect", IconType::DeathEffect)
+		.value("Special", IconType::Special)
+		.value("Item", IconType::Item)
+		.value("ShipFire", IconType::ShipFire);
+	
+	py::enum_<UnlockType>(m, "UnlockType")
+		.value("Cube", UnlockType::Cube)
+		.value("Col1", UnlockType::Col1)
+		.value("Col2", UnlockType::Col2)
+		.value("Ship", UnlockType::Ship)
+		.value("Ball", UnlockType::Ball)
+		.value("Bird", UnlockType::Bird)
+		.value("Dart", UnlockType::Dart)
+		.value("Robot", UnlockType::Robot)
+		.value("Spider", UnlockType::Spider)
+		.value("Streak", UnlockType::Streak)
+		.value("Death", UnlockType::Death)
+		.value("GJItem", UnlockType::GJItem)
+		.value("Swing", UnlockType::Swing)
+		.value("Jetpack", UnlockType::Jetpack)
+		.value("ShipFire", UnlockType::ShipFire);
 }
 
 void Serpent::bindings::serpent::bind(pybind11::module m) {

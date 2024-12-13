@@ -86,6 +86,7 @@ $on_mod(Loaded) {
 	bindings::_geode::bind(m);
 	bindings::cocos::enums(m);
 	bindings::cocos::bind(m);
+	bindings::robtop::enums(m);
 	bindings::robtop::bind(m);
 	bindings::serpent::bind(m);
 
