@@ -3,6 +3,7 @@
 - Added GameManager hooks
 - Added SeedValueRSV bindings
 - Added CCLayer hooks.
+- Added more CCTexture2D bindings
 
 # 1.0.0-beta.4
 - Fixed UI on less wider screens

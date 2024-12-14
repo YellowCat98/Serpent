@@ -152,8 +152,27 @@ void Serpent::bindings::cocos::bind(pybind11::module m) {
 	py::class_<CCNodeRGBA, CCNode, CCRGBAProtocol>(m, "CCNodeRGBA")
 		.def_static("create", py::overload_cast<>(&CCNodeRGBA::create), py::return_value_policy::reference);
 	
-	py::class_<CCTexture2D, CCObject>(m, "CCTexture2D")
-		.def(py::init<>());
+	py::class_<cocos2d::CCTexture2D, cocos2d::CCObject>(m, "CCTexture2D")
+		.def(py::init<>())
+		.def("PVRImagesHavePremultipliedAlpha", py::overload_cast<bool>(&cocos2d::CCTexture2D::PVRImagesHavePremultipliedAlpha), py::arg("value"))
+		.def("initWithData", py::overload_cast<const void*, cocos2d::CCTexture2DPixelFormat, unsigned int, unsigned int, const cocos2d::CCSize&>(&cocos2d::CCTexture2D::initWithData), py::arg("data"), py::arg("pixelFormat"), py::arg("width"), py::arg("height"), py::arg("contentSize"))
+		.def("initWithETCFile", py::overload_cast<const char*>(&cocos2d::CCTexture2D::initWithETCFile), py::arg("filePath"))
+		.def("initWithImage", py::overload_cast<cocos2d::CCImage*>(&cocos2d::CCTexture2D::initWithImage), py::arg("image"))
+		.def("initWithPVRFile", py::overload_cast<const char*>(&cocos2d::CCTexture2D::initWithPVRFile), py::arg("filePath"))
+		.def("initWithString", py::overload_cast<const char*, const char*, float>(&cocos2d::CCTexture2D::initWithString), py::arg("text"), py::arg("fontName"), py::arg("fontSize"))
+		.def("setAliasTexParameters", py::overload_cast<>(&cocos2d::CCTexture2D::setAliasTexParameters))
+		.def("setTexParameters", py::overload_cast<cocos2d::_ccTexParams*>(&cocos2d::CCTexture2D::setTexParameters), py::arg("texParams"))
+		.def("releaseGLTexture", py::overload_cast<>(&cocos2d::CCTexture2D::releaseGLTexture))
+		.def("generateMipmap", py::overload_cast<>(&cocos2d::CCTexture2D::generateMipmap))
+		.def("getPixelFormat", py::overload_cast<>(&cocos2d::CCTexture2D::getPixelFormat))
+		.def("getPixelsWide", py::overload_cast<>(&cocos2d::CCTexture2D::getPixelsWide))
+		.def("getPixelsHigh", py::overload_cast<>(&cocos2d::CCTexture2D::getPixelsHigh))
+		.def("getName", py::overload_cast<>(&cocos2d::CCTexture2D::getName))
+		.def("getMaxS", py::overload_cast<>(&cocos2d::CCTexture2D::getMaxS))
+		.def("setMaxS", py::overload_cast<float>(&cocos2d::CCTexture2D::setMaxS), py::arg("maxS"))
+		.def("getMaxT", py::overload_cast<>(&cocos2d::CCTexture2D::getMaxT))
+		.def("setMaxT", py::overload_cast<float>(&cocos2d::CCTexture2D::setMaxT), py::arg("maxT"))
+		.def("getContentSize", py::overload_cast<>(&cocos2d::CCTexture2D::getContentSize));
 	
 	py::class_<CCTextureProtocol>(m, "CCTextureProtocol")
 		.def("getTexture", &CCTextureProtocol::getTexture)
