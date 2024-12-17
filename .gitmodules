@@ -1,0 +1,3 @@
+[submodule "libs/cpython"]
+    path = libs/cpython
+    url = https://github.com/python/cpython.git
