@@ -28,3 +28,7 @@ CREATE_WRAPPER_FOR(instance->mainClass, LoadingLayer_init, bool, ARGS(self, p0),
 CREATE_WRAPPER_FOR(instance->mainClass, LoadingLayer_loadAssets, void, ARGS(self), LoadingLayer* self)
 CREATE_WRAPPER_FOR(instance->mainClass, LoadingLayer_scene, cocos2d::CCScene*, ARGS(self, p0), LoadingLayer* self, bool p0)
 CREATE_WRAPPER_FOR(instance->mainClass, LoadingLayer_updateProgress, void, ARGS(self, p0), LoadingLayer* self, int p0)
+
+CREATE_WRAPPER_FOR(instance->mainClass, CCLayer_init, bool, ARGS(self), CCLayer* self)
+
+CREATE_WRAPPER_FOR(instance->mainClass, CCScene_init, bool, ARGS(self), CCScene* self)

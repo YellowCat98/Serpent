@@ -33,5 +33,9 @@ namespace Serpent {
 		static void LoadingLayer_loadAssets(LoadingLayer* self);
 		static cocos2d::CCScene* LoadingLayer_scene(LoadingLayer* self, bool p0);
 		static void LoadingLayer_updateProgress(LoadingLayer* self, int p0);
+
+		static bool CCLayer_init(cocos2d::CCLayer* self);
+
+		static bool CCScene_init(cocos2d::CCScene* self);
 	};
 }

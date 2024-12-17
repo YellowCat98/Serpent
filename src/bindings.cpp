@@ -133,7 +133,8 @@ void Serpent::bindings::cocos::bind(pybind11::module m) {
 	
 
 	py::class_<CCScene, CCNode>(m, "CCScene")
-		.def_static("create", py::overload_cast<>(&CCScene::create), py::return_value_policy::reference);
+		.def_static("create", py::overload_cast<>(&CCScene::create), py::return_value_policy::reference)
+		.def("init", py::overload_cast<>(&CCScene::init));
 
 	py::class_<CCRGBAProtocol>(m, "CCRGBAProtocol")
 		.def("setColor", py::overload_cast<ccColor3B const&>(&CCRGBAProtocol::setColor), py::arg("color"))
@@ -144,7 +145,8 @@ void Serpent::bindings::cocos::bind(pybind11::module m) {
 	
 	py::class_<CCLayer, CCNode>(m, "CCLayer")
 		.def(py::init<>())
-		.def_static("create", py::overload_cast<>(&CCLayer::create), py::return_value_policy::reference);
+		.def_static("create", py::overload_cast<>(&CCLayer::create), py::return_value_policy::reference)
+		.def("init", py::overload_cast<>(&CCLayer::init));
 	
 	py::class_<CCLayerRGBA, CCLayer, CCRGBAProtocol>(m, "CCLayerRGBA")
 		.def_static("create", py::overload_cast<>(&CCLayerRGBA::create), py::return_value_policy::reference);
@@ -154,7 +156,6 @@ void Serpent::bindings::cocos::bind(pybind11::module m) {
 	
 	py::class_<cocos2d::CCTexture2D, cocos2d::CCObject>(m, "CCTexture2D")
 		.def(py::init<>())
-		.def("PVRImagesHavePremultipliedAlpha", py::overload_cast<bool>(&cocos2d::CCTexture2D::PVRImagesHavePremultipliedAlpha), py::arg("value"))
 		.def("initWithData", py::overload_cast<const void*, cocos2d::CCTexture2DPixelFormat, unsigned int, unsigned int, const cocos2d::CCSize&>(&cocos2d::CCTexture2D::initWithData), py::arg("data"), py::arg("pixelFormat"), py::arg("width"), py::arg("height"), py::arg("contentSize"))
 		.def("initWithETCFile", py::overload_cast<const char*>(&cocos2d::CCTexture2D::initWithETCFile), py::arg("filePath"))
 		.def("initWithImage", py::overload_cast<cocos2d::CCImage*>(&cocos2d::CCTexture2D::initWithImage), py::arg("image"))

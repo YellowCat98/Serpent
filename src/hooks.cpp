@@ -33,4 +33,8 @@ void script::initAllHooks() {
     CREATE_HOOK_WITH_CHECK_FOR(this->mainClass, "LoadingLayer::init", "LoadingLayer_init", wrapper::LoadingLayer_init, geode::base::get() + 0x319600, Default, LoadingLayer_initHook)
     CREATE_HOOK_WITH_CHECK_FOR(this->mainClass, "LoadingLayer::loadAssets", "LoadingLayer_loadAssets", wrapper::LoadingLayer_loadAssets, geode::base::get() + 0x319ea0, Default, LoadingLayer_loadAssetsHook)
     CREATE_HOOK_WITH_CHECK_FOR(this->mainClass, "LoadingLayer::updateProgress", "LoadingLayer_updateProgress", wrapper::LoadingLayer_updateProgress, geode::base::get() + 0x319e20, Default, LoadingLayer_updateProgressHook)
+
+    CREATE_HOOK_WITH_CHECK_FOR(this->mainClass, "CCLayer::init", "CCLayer_init", wrapper::CCLayer_init, addresser::getVirtual(&CCLayer::init), Default, CCLayer_initHook)
+
+    CREATE_HOOK_WITH_CHECK_FOR(this->mainClass, "CCScene::init", "CCScene_init", wrapper::CCScene_init, addresser::getVirtual(&CCScene::init), Default, CCScene_initHook)
 }
