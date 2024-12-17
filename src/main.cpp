@@ -6,7 +6,6 @@
 #include <Geode/modify/LoadingLayer.hpp>
 #include "Serpent.hpp"
 
-
 namespace py = pybind11;
 using namespace geode::prelude;
 using namespace Serpent;
