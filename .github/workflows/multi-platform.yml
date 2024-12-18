@@ -31,7 +31,7 @@ jobs:
       # Install Visual Studio Build Tools and necessary dependencies
       - name: Install Visual Studio Build Tools
         run: |
-          choco install visualstudio2022buildtools
+          choco install visualstudio2019buildtools
 
       # Clone CPython repository (or your fork)
       - name: Clone CPython
