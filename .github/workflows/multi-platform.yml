@@ -1,4 +1,4 @@
-name: Build Geode Mod
+name: Build Geode Mod with Static CPython
 
 on:
   workflow_dispatch:
@@ -19,8 +19,44 @@ jobs:
     runs-on: ${{ matrix.config.os }}
 
     steps:
+      # Checkout repository
       - uses: actions/checkout@v4
 
+      # Set up Python
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.x'
+
+      # Install Visual Studio Build Tools and necessary dependencies
+      - name: Install Visual Studio Build Tools
+        run: |
+          choco install visualstudio2019buildtools
+          choco install python --version=3.9.0
+
+      # Clone CPython repository (or your fork)
+      - name: Clone CPython
+        run: |
+          git clone https://github.com/YellowCat98/cpython-static.git cpython
+          cd cpython
+
+      # Configure and build CPython statically
+      - name: Configure CPython for Static Build
+        run: |
+          cd cpython/PCbuild
+          python ./build.bat --disable-shared
+
+      - name: Build CPython Statistically
+        run: |
+          cd cpython/PCbuild
+          msbuild pythoncore.vcxproj /p:Configuration=Release
+
+      # Set up pybind11 (assuming it’s used for bindings in your project)
+      - name: Install pybind11
+        run: |
+          pip install pybind11
+
+      # Build the Geode Mod (your existing build process)
       - name: Build the mod
         uses: geode-sdk/build-geode-mod@main
         with:
