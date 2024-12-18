@@ -44,7 +44,7 @@ jobs:
         shell: cmd
         run: |
           cd cpython/PCbuild
-          build.bat --enable-static
+          build.bat --disable-shared
 
       - name: Build CPython Statistically
         run: |
