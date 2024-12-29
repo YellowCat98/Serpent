@@ -44,7 +44,7 @@ jobs:
         shell: cmd
         run: |
           cd cpython/PCbuild
-          call build.bat --disable-shared
+          python build.bat --disable-shared
 
       - name: Build CPython Statistically
         run: |
