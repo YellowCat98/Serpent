@@ -49,7 +49,7 @@ jobs:
       - name: Build CPython Statistically
         run: |
           cd cpython/PCbuild
-          "C:\Program Files\Microsoft Visual Studio\2022\Enterprise\MSBuild\Current\Bin\msbuild.exe" pythoncore.vcxproj /p:Configuration=Release /p:Platform=x64 /p:IncludeExternals=true /p:IncludeCTypes=true /p:IncludeSSL=true /p:IncludeTkinter=true /p:DisableGil=true /p:UseTestMarker=true /p:UseJIT=false /p:UseTIER2=false /p:DisableShared=true
+          & "C:\Program Files\Microsoft Visual Studio\2022\Enterprise\MSBuild\Current\Bin\msbuild.exe" pythoncore.vcxproj /p:Configuration=Release /p:Platform=x64 /p:IncludeExternals=true /p:IncludeCTypes=true /p:IncludeSSL=true /p:IncludeTkinter=true /p:DisableGil=true /p:UseTestMarker=true /p:UseJIT=false /p:UseTIER2=false /p:DisableShared=true
 
       # Set up pybind11 (assuming it’s used for bindings in your project)
       - name: Install pybind11
