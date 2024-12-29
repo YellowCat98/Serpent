@@ -40,11 +40,11 @@ jobs:
           cd cpython
 
       # Configure and build CPython statically
-      - name: Configure CPython for Static Build
-        shell: cmd
-        run: |
-          cd cpython/PCbuild
-          cmd /c build.bat --disable-shared
+      #- name: Configure CPython for Static Build
+      #  shell: cmd
+      #  run: |
+      #    cd cpython/PCbuild
+      #    cmd /c build.bat --disable-shared
 
       - name: Build CPython Statistically
         run: |
